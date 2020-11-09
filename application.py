@@ -31,7 +31,7 @@ def saveRecord():
             msg = "We can not add Student detials to the database"
         finally:
             return render_template("success_record.html",msg = msg)
-            con.close()
+            connection.close()
 
 
 
