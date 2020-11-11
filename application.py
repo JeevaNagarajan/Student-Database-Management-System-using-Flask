@@ -52,18 +52,25 @@ def student_info():
 
 
 
-@app.route("/deleterecord",methods = ["POST"])   
+@app.route("/deleterecord",methods = ["POST"])
 def deleterecord():
     id = request.form["id"]
     with sqlite3.connect("student_detials.db") as connection:
-        try:
-            cursor = connection.cursor()
-            cursor.execute("delete from Student_Info where id = ?",id)
-            msg = "Student detial successfully deleted"
-        except:
-            msg = "can't be deleted"
-        finally:
-            return render_template("delete_record.html",msg = msg)
 
+        cursor = connection.cursor()
+        cursor.execute("select * from Student_Info where id=?", (id,))
+        rows = cursor.fetchall()
+        if not rows == []:
+
+            cursor.execute("delete from Student_Info where id = ?",(id,))
+            msg = "Employee detial successfully deleted"
+            return render_template("delete_record.html", msg=msg)
+
+        else:
+            msg = "can't be deleted"
+            return render_template("delete_record.html", msg=msg)
+
+        
+        
 if __name__ == "__main__":
     app.run(debug = True)  
