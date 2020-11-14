@@ -63,7 +63,7 @@ def deleterecord():
         if not rows == []:
 
             cursor.execute("delete from Student_Info where id = ?",(id,))
-            msg = "Employee detial successfully deleted"
+            msg = "Student detial successfully deleted"
             return render_template("delete_record.html", msg=msg)
 
         else:
